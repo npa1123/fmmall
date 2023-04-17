@@ -1,6 +1,7 @@
 package com.hfxt.fmmall;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hfxt.fmmall.dao.UserDao;
 import com.hfxt.fmmall.entity.User;
 import org.junit.Test;
@@ -18,7 +19,9 @@ public class UserDaoTest {
 
     @Test
     public void queryUserByName(){
-        User user = userDao.queryUserByName("admin");
+        LambdaQueryWrapper<User> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getUsername,"admin");
+        User user = userDao.selectOne(queryWrapper);
         System.out.println(user);
     }
 }
