@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace写全类名-->
+<mapper namespace="com.hfxt.fmmall.dao.UserDao">
+
+    <resultMap id="userMap" type="user">
+        <id property="userId" column="userId"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="telphone" column="telphone"/>
+        <result property="address" column="address"/>
+    </resultMap>
+
+    <select id="queryUserByName" resultMap="userMap">
+        select * from tb_user where username=#{name}
+    </select>
+
+
+</mapper>
