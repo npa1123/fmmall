@@ -21,9 +21,10 @@ public class ResultVO<T> implements Serializable {
 
     private Map map = new HashMap(); //动态数据
 
-    public static <T> ResultVO<T> success(T object) {
+    public static <T> ResultVO<T> success(T object,String msg) {
         ResultVO<T> r = new ResultVO<T>();
         r.data = object;
+        r.msg=msg;
         r.code = 200;
         return r;
     }

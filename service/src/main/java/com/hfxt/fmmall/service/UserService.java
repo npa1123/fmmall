@@ -6,5 +6,5 @@ import com.hfxt.fmmall.vo.ResultVO;
 
 public interface UserService extends IService<User> {
 
-    ResultVO checkLogin(String username, String pwd);
+    ResultVO<User> checkLogin(String username, String pwd);
 }
