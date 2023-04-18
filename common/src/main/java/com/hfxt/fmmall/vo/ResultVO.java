@@ -24,14 +24,14 @@ public class ResultVO<T> implements Serializable {
     public static <T> ResultVO<T> success(T object) {
         ResultVO<T> r = new ResultVO<T>();
         r.data = object;
-        r.code = 1;
+        r.code = 200;
         return r;
     }
 
     public static <T> ResultVO<T> error(String msg) {
         ResultVO r = new ResultVO();
         r.msg = msg;
-        r.code = 0;
+        r.code = 201;
         return r;
     }
 
