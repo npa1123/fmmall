@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hfxt.dao.ShoppingCartMapper">
+<mapper namespace="com.hfxt.fmmall.dao.ShoppingCartMapper">
 
     <resultMap id="BaseResultMap" type="ShoppingCart">
             <id property="cartId" column="cart_id" jdbcType="INTEGER"/>
