@@ -38,8 +38,7 @@ public class UsersServiceImpl extends ServiceImpl<UserMapper, User> implements U
             return ResultVO.error("用户名不存在");
         }else {
             //3.对输入的密码进行加密'
-            String pwdMd5 = MD5Utils.md5(user.getPassword());
-            user.setPassword(pwdMd5);
+            String pwdMd5 = MD5Utils.md5(pwd);
             //4.使用加密后的密码与user中的密码进行匹配
             if (user.getPassword().equals(pwdMd5)){
                 //验证成功

@@ -18,6 +18,7 @@ import java.util.Date;
 @RequestMapping("/user")
 @Api(value = "提供用户登录，注册，退出登录",tags = "前台用户管理")
 @Slf4j
+@CrossOrigin//设置允许跨域
 public class UserController {
     @Resource
     private UsersService userService;
