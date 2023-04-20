@@ -6,11 +6,17 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hfxt.fmmall.dao.UserMapper;
 import com.hfxt.fmmall.entity.User;
 import com.hfxt.fmmall.service.UsersService;
+import com.hfxt.fmmall.utils.Base64Utils;
 import com.hfxt.fmmall.utils.MD5Utils;
 import com.hfxt.fmmall.vo.ResultVO;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  *
@@ -41,11 +47,24 @@ public class UsersServiceImpl extends ServiceImpl<UserMapper, User> implements U
             String pwdMd5 = MD5Utils.md5(pwd);
             //4.使用加密后的密码与user中的密码进行匹配
             if (user.getPassword().equals(pwdMd5)){
+                //如果登录成功，则需要生成令牌token，（token就是按照特定规则生成的字符串）
+                //String token= Base64Utils.encode(username+123456);
+                JwtBuilder builder = Jwts.builder();
+                HashMap<String,Object> map=new HashMap<>();
+                map.put("key1","value1");
+                map.put("key2","value2");
+                String token = builder.setSubject(username)    //主题：就是token中携带的数据
+                        .setIssuedAt(new Date())               //设置token的生成时间
+                        .setId(user.getUserId() + "")          //设置用户id为token_id
+                        .setClaims(map)                        //map中可以存放用户的角色权限信息
+                        .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))  //设置过期时间
+                        .signWith(SignatureAlgorithm.HS256, "123456")//设置加密方式和加密密码
+                        .compact();
                 //验证成功
-                return ResultVO.success(user,"登录成功");
+                return ResultVO.success(user,token);
             }else {
                 //密码错误
-                return ResultVO.error("密码失败");
+                return ResultVO.error("登录失败，密码错误");
             }
         }
     }
